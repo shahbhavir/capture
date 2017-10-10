@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Photo capture overlay demo</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css" type="text/css" media="all">
+</head>
+
+<body>
+  <div class="contentarea">
+    <h2>Photo capture overlay demo</h2>
+    <div class="camera">
+      <video id="video">Video stream not available.</video>
+      <div id="guide-rect"></div>
+      <div id="guide-text">While taking picture, make sure the content fits inside this rectangle</div>
+      <button id="startbutton">Take photo</button>
+    </div>
+    <canvas id="canvas">
+    </canvas>
+    <div class="output">
+      <img id="photo" alt="The screen capture will appear in this box.">
+    </div>
+    <p>
+      WebRTC API: This example demonstrates how to set up a media stream using your built-in webcam, fetch an image from that stream,
+      and create a PNG using that image.
+    </p>
+  </div>
+
+  <script src="capture.js"></script>
+</body>
+
+</html>
