@@ -55,12 +55,10 @@ body {
 
 #guide-rect {
   position: absolute;
-  top: 60px;
-  left: 20px;
   border: 1px solid white;
   box-shadow: 1px 1px 2px white;
-  width: 260px;
-  height: 80px;
+  width: 0;
+  height: 0;
 }
 
 #guide-text {

@@ -18,12 +18,21 @@
   var canvas = null;
   var photo = null;
   var startbutton = null;
+  var guideLines = null;
+
+  // Rectangular guidelines
+
+  var sx = 20; // x position from image source
+  var sy = 60; // y position from image source
+  var sWidth = 260; // width from image source
+  var sHeight = 80; // height from image source
 
   function startup() {
     video = document.getElementById('video');
     canvas = document.getElementById('canvas');
     photo = document.getElementById('photo');
     startbutton = document.getElementById('startbutton');
+    guideLines = document.getElementById('guide-rect');
 
     navigator.getMedia = (navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
@@ -65,6 +74,14 @@
     }, false);
 
     clearphoto();
+
+    guideLines.setAttribute(
+      'style',
+      'left: ' + sx + 'px;' +
+      'top: ' + sy + 'px;' +
+      'width: ' + sWidth + 'px;' +
+      'height: ' + sHeight + 'px;'
+    );
   }
 
   // Fill the photo with an indication that none has been
@@ -93,11 +110,9 @@
       var videoWidth = video.videoWidth;
       var videoHeight = video.videoHeight;
       var vidToCanvScale = videoWidth / canvasWidth;
-      var sx = 20 * vidToCanvScale; // x position from image source
-      var sy = 60 * vidToCanvScale; // y position from image source
       context.drawImage(
         video,
-        sx, sy, videoWidth - (sx * vidToCanvScale), videoHeight - (sy * vidToCanvScale),
+        sx * vidToCanvScale, sy * vidToCanvScale, sWidth * vidToCanvScale, sHeight * vidToCanvScale,
         0, 0, canvasWidth, canvasHeight
       );
 
