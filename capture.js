@@ -3,8 +3,8 @@
   // width to the value defined here, but the height will be
   // calculated based on the aspect ratio of the input stream.
 
-  var width = 320;    // We will scale the photo width to this
-  var height = 240;     // This will be computed based on the input stream
+  var canvasWidth = 320;    // We will scale the photo width to this
+  var canvasHeight = 240;     // This will be computed based on the input stream
 
   // |streaming| indicates whether or not we're currently streaming
   // video from the camera. Obviously, we start at false.
@@ -51,10 +51,10 @@
 
     video.addEventListener('canplay', function (ev) {
       if (!streaming) {
-        video.setAttribute('width', width);
-        video.setAttribute('height', height);
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
+        video.setAttribute('width', canvasWidth);
+        video.setAttribute('height', canvasHeight);
+        canvas.setAttribute('width', canvasWidth);
+        canvas.setAttribute('height', canvasHeight);
         streaming = true;
       }
     }, false);
@@ -87,10 +87,19 @@
 
   function takepicture() {
     var context = canvas.getContext('2d');
-    if (width && height) {
-      canvas.width = width;
-      canvas.height = height;
-      context.drawImage(video, 0, 0, width, height);
+    if (canvasWidth && canvasHeight) {
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      var videoWidth = video.videoWidth;
+      var videoHeight = video.videoHeight;
+      var vidToCanvScale = videoWidth / canvasWidth;
+      var sx = 20 * vidToCanvScale; // x position from image source
+      var sy = 60 * vidToCanvScale; // y position from image source
+      context.drawImage(
+        video,
+        sx, sy, videoWidth - (sx * vidToCanvScale), videoHeight - (sy * vidToCanvScale),
+        0, 0, canvasWidth, canvasHeight
+      );
 
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
